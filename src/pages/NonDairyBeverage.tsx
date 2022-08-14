@@ -1,25 +1,35 @@
 import { Fragment, createContext, useState } from 'react';
 import TextField from '@mui/material/TextField';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import React from 'react';
 
 export function NonDairyBeverage() {
   const [energy, setEnergy] = useState(0);
   const [sugar, setSugar] = useState(0);
   const [fvnl, setFvnl] = useState(0);
+  const [isPlainWater, setIsPlainWater] = useState(false);
+  const [isUnsweetenedFlavouredWater, setIsUnsweetenedFlavouredWater] = useState(false);
 
   return (
     <Fragment>
-        <TextField id="energy" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} label="Energy (kJ/100mL)" variant="outlined" onChange={(e) => setEnergy(+e.target.value)}/>
-        <TextField id="sugar" label="Total sugars (g/100mL)" variant="outlined" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} onChange={(e) => setSugar(+e.target.value)}/>
-        <TextField id="fvnl" label="FVNL (%)" variant="outlined" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} onChange={(e) => setFvnl(+e.target.value)}/>
-        <p>fruits, vegetables, nuts and legumes Defined in Schedule 5 of the Code and includes coconut, spices, herbs, fungi, seeds and algae.</p>
-        <p>{starsCalc(energyCalc(energy) + sugarCalc(sugar) - fvnlCalc(fvnl))}</p>
+        <FormControlLabel control={<Checkbox onChange={(e) => setIsPlainWater(e.target.checked)} disabled={isUnsweetenedFlavouredWater} />} label="Is Plain Water"/>
+        <FormControlLabel control={<Checkbox onChange={(e) => setIsUnsweetenedFlavouredWater(e.target.checked)} disabled={isPlainWater} />} label="Is Unsweetened Flavoured Water" />
+        <TextField disabled={isPlainWater || isUnsweetenedFlavouredWater} id="energy" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} label="Energy (kJ/100mL)" variant="outlined" onChange={(e) => setEnergy(+e.target.value)}/>
+        <TextField disabled={isPlainWater || isUnsweetenedFlavouredWater} id="sugar" label="Total sugars (g/100mL)" variant="outlined" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} onChange={(e) => setSugar(+e.target.value)}/>
+        <TextField disabled={isPlainWater || isUnsweetenedFlavouredWater} id="fvnl" label="FVNL* (%)" variant="outlined" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} onChange={(e) => setFvnl(+e.target.value)}/>
+        <p>*fruits, vegetables, nuts and legumes Defined in Schedule 5 of the Code and includes coconut, spices, herbs, fungi, seeds and algae.</p>
+        <p>{starsCalc(energyCalc(energy) + sugarCalc(sugar) - fvnlCalc(fvnl), isPlainWater, isUnsweetenedFlavouredWater)}</p>
     </Fragment>
   );
 }
 
-function starsCalc(hsr:number) {
+function starsCalc(hsr:number, isPlainWater: boolean, isUnsweetenedFlavouredWater: boolean) {
   switch(true) {
+    case isPlainWater:
+      return 5;
+    case isUnsweetenedFlavouredWater:
+      return 4.5;
     case hsr <= 0:
       return 4;
     case hsr === 1:
