@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/HealthStarCalculator/static/css/main.073c9b0a.css",
-    "main.js": "/HealthStarCalculator/static/js/main.7be14f8b.js",
+    "main.js": "/HealthStarCalculator/static/js/main.138e5c32.js",
     "static/js/787.a6b4e506.chunk.js": "/HealthStarCalculator/static/js/787.a6b4e506.chunk.js",
     "index.html": "/HealthStarCalculator/index.html",
     "main.073c9b0a.css.map": "/HealthStarCalculator/static/css/main.073c9b0a.css.map",
-    "main.7be14f8b.js.map": "/HealthStarCalculator/static/js/main.7be14f8b.js.map",
+    "main.138e5c32.js.map": "/HealthStarCalculator/static/js/main.138e5c32.js.map",
     "787.a6b4e506.chunk.js.map": "/HealthStarCalculator/static/js/787.a6b4e506.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.7be14f8b.js"
+    "static/js/main.138e5c32.js"
   ]
 }
